@@ -22,6 +22,10 @@ export const BlackBears = () => {
     const increaseBlackBears = useBearStore(
         (state) => state.increaseBlackBears
     );
+
+    // This way cause rerenders on every state change
+    // const { blackBears, increaseBlackBears } = useBearStore((state) => state);
+
     return (
         <WhiteCard centered>
             <h2>Osos Negros</h2>
