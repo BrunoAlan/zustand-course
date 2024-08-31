@@ -1,3 +1,4 @@
+import { useShallow } from 'zustand/react/shallow';
 import { WhiteCard } from '../../components';
 import { useBearStore } from '../../stores';
 
@@ -77,9 +78,12 @@ export const PandaBears = () => {
 };
 
 export const BearDisplay = () => {
-    const bears = useBearStore((store) => store.bears);
+    const bears = useBearStore(useShallow((store) => store.bears));
+    const doNothing = useBearStore((store) => store.doNothing);
     return (
         <WhiteCard>
+            <h2>Osos</h2>
+            <button onClick={doNothing}>Do nothing</button>
             <pre>{JSON.stringify(bears, null, 2)}</pre>
         </WhiteCard>
     );
