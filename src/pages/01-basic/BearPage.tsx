@@ -80,10 +80,18 @@ export const PandaBears = () => {
 export const BearDisplay = () => {
     const bears = useBearStore(useShallow((store) => store.bears));
     const doNothing = useBearStore((store) => store.doNothing);
+    const addBear = useBearStore((store) => store.addBear);
+    const clearBears = useBearStore((store) => store.clearBears);
     return (
         <WhiteCard>
             <h2>Osos</h2>
             <button onClick={doNothing}>Do nothing</button>
+            <button className='mt-2' onClick={addBear}>
+                Add Bear
+            </button>
+            <button className='mt-2' onClick={clearBears}>
+                Clear Bears
+            </button>
             <pre>{JSON.stringify(bears, null, 2)}</pre>
         </WhiteCard>
     );
