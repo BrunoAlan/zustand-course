@@ -9,15 +9,15 @@ export const BearPage = () => {
             <hr />
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
-                <BlackBear />
-                <PolarBear />
-                <PandaBear />
+                <BlackBears />
+                <PolarBears />
+                <PandaBears />
             </div>
         </>
     );
 };
 
-export const BlackBear = () => {
+export const BlackBears = () => {
     const blackBears = useBearStore((state) => state.blackBears);
     const increaseBlackBears = useBearStore(
         (state) => state.increaseBlackBears
@@ -35,7 +35,7 @@ export const BlackBear = () => {
     );
 };
 
-export const PolarBear = () => {
+export const PolarBears = () => {
     const polarBears = useBearStore((store) => store.polarBears);
     const increasePolarBear = useBearStore((store) => store.increasePolarBears);
 
@@ -52,7 +52,7 @@ export const PolarBear = () => {
     );
 };
 
-export const PandaBear = () => {
+export const PandaBears = () => {
     const pandaBears = useBearStore((store) => store.pandaBears);
     const increasePandaBears = useBearStore(
         (store) => store.increasePandaBears
