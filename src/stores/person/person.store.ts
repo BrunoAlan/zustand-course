@@ -5,7 +5,6 @@ import {
     persist,
     StateStorage,
 } from 'zustand/middleware';
-import { customSessionStorage } from '../storages/session-storage.storage';
 import { firebaseStorage } from '../storages/firebase-storage.storage';
 
 interface PersonState {
