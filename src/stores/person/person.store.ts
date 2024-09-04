@@ -1,11 +1,11 @@
 import { create, type StateCreator } from 'zustand';
 import {
-    createJSONStorage,
+    // createJSONStorage,
     devtools,
     persist,
-    StateStorage,
+    // StateStorage,
 } from 'zustand/middleware';
-import { firebaseStorage } from '../storages/firebase-storage.storage';
+// import { firebaseStorage } from '../storages/firebase-storage.storage';
 
 interface PersonState {
     firstName: string;
@@ -25,7 +25,7 @@ const PersonActions = {
 const storeAPI: StateCreator<
     PersonState & Actions,
     [['zustand/devtools', never]]
-> = (set, get) => ({
+> = (set) => ({
     firstName: '',
     lastName: '',
     setFirstName: (value: string) =>
@@ -38,7 +38,7 @@ export const usePersonStore = create<PersonState & Actions>()(
     devtools(
         persist(storeAPI, {
             name: 'person-storage',
-            storage: firebaseStorage,
+            // storage: firebaseStorage,
         })
     )
 );
