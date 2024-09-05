@@ -10,6 +10,7 @@ interface TaskState {
 
     setDraggingTaskId: (id: string) => void;
     removeDraggingTaskId: () => void;
+    changeTaskStatus: (taskId: string, status: TaskStatus) => void;
 }
 
 const storeApi: StateCreator<TaskState, [['zustand/devtools', never]]> = (
@@ -18,26 +19,10 @@ const storeApi: StateCreator<TaskState, [['zustand/devtools', never]]> = (
 ) => ({
     draggingTaskId: undefined,
     tasks: {
-        '1': {
-            id: '1',
-            title: 'Task 1',
-            status: 'open',
-        },
-        '2': {
-            id: '2',
-            title: 'Task 2',
-            status: 'in-progress',
-        },
-        '3': {
-            id: '3',
-            title: 'Task 3',
-            status: 'open',
-        },
-        '4': {
-            id: '4',
-            title: 'Task 4',
-            status: 'open',
-        },
+        'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
+        'ABC-2': { id: 'ABC-2', title: 'Task 2', status: 'in-progress' },
+        'ABC-3': { id: 'ABC-3', title: 'Task 3', status: 'open' },
+        'ABC-4': { id: 'ABC-4', title: 'Task 4', status: 'open' },
     },
 
     getTaskByStatus: (status: TaskStatus) => {
@@ -48,11 +33,21 @@ const storeApi: StateCreator<TaskState, [['zustand/devtools', never]]> = (
     },
 
     setDraggingTaskId(taskId: string) {
-        console.log(taskId);
         set({ draggingTaskId: taskId });
     },
     removeDraggingTaskId() {
         set({ draggingTaskId: undefined });
+    },
+
+    changeTaskStatus(taskId: string, status: TaskStatus) {
+        const task = get().tasks[taskId];
+        task.status = status;
+        set((state) => ({
+            tasks: {
+                ...state.tasks,
+                [taskId]: task,
+            },
+        }));
     },
 });
 
