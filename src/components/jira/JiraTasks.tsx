@@ -5,22 +5,39 @@ import SingleTask from './SingleTask';
 import { useTaskStore } from '../../stores/tast/task.store';
 import classNames from 'classnames';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 interface Props {
     title: string;
     tasks: Task[];
-    value: TaskStatus;
+    status: TaskStatus;
 }
 
-export const JiraTasks = ({ title, value, tasks }: Props) => {
+export const JiraTasks = ({ title, status, tasks }: Props) => {
     const isDragging = useTaskStore((state) => !!state.draggingTaskId);
     const onTaskDrop = useTaskStore((state) => state.onTaskDrop);
     const addTask = useTaskStore((state) => state.addTask);
 
     const [onDragOver, setOnDragOver] = useState(false);
 
-    const handleAddTask = () => {
-        addTask('New Task', value);
+    const handleAddTask = async () => {
+        const { isConfirmed, value } = await Swal.fire({
+            title: 'Add Task',
+            inputLabel: 'Task Title',
+            input: 'text',
+            inputPlaceholder: 'Enter Task Title',
+            showCancelButton: true,
+            confirmButtonText: 'Add Task',
+            cancelButtonText: 'Cancel',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Task Title is required!';
+                }
+            },
+        });
+        if (!isConfirmed) return;
+
+        addTask(value, status);
     };
 
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -36,7 +53,7 @@ export const JiraTasks = ({ title, value, tasks }: Props) => {
     const handleDrop = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setOnDragOver(false);
-        onTaskDrop(value);
+        onTaskDrop(status);
     };
 
     return (
