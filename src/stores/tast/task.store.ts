@@ -11,6 +11,7 @@ interface TaskState {
     setDraggingTaskId: (id: string) => void;
     removeDraggingTaskId: () => void;
     changeTaskStatus: (taskId: string, status: TaskStatus) => void;
+    onTaskDrop: (status: TaskStatus) => void;
 }
 
 const storeApi: StateCreator<TaskState, [['zustand/devtools', never]]> = (
@@ -48,6 +49,13 @@ const storeApi: StateCreator<TaskState, [['zustand/devtools', never]]> = (
                 [taskId]: task,
             },
         }));
+    },
+
+    onTaskDrop(status: TaskStatus) {
+        const draggingTaskId = get().draggingTaskId;
+        if (!draggingTaskId) return;
+        get().changeTaskStatus(draggingTaskId, status);
+        get().removeDraggingTaskId();
     },
 });
 
