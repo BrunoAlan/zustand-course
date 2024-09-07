@@ -1,5 +1,5 @@
 import { WhiteCard } from '../../components';
-import { useWeddingBoundStore } from '../../stores/weddin';
+import { useWeddingBoundStore } from '../../stores/wedding';
 
 export const WeddingInvitationPage = () => {
     const firstName = useWeddingBoundStore((state) => state.firstName);
